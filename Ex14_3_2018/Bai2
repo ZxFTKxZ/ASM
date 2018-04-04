@@ -1,0 +1,107 @@
+# MIPS program that calculate the operation ((5x + 3y + z)/2)x3, with x, y, z is float.
+# by Hoang The Hop
+.data
+	promptx: .asciiz "\nEnter the value of x: \n"
+	prompty: .asciiz "\nEnter the value of y: \n"
+	promptz: .asciiz "\nEnter the value of z: \n"
+	promptr: .asciiz "\nResult of ((5x + 3y + z)/2)x3 is: "
+	
+	indexx: .float 5.0
+	indexy: .float 3.0
+	two: .float 2.0
+	three: .float 3.0
+
+.text
+	#Prompt the user to enter x
+	li $v0, 4
+	la $a0, promptx
+	syscall
+	
+	#Get the value of x
+	li $v0, 6
+	syscall
+	
+	#Display the value x
+	#li $v0, 2
+	#add.s  $f12, $f12, $f0
+	#syscall
+	
+	#Store the value of x
+	mov.s $f1,$f0
+	
+	#Calculate and store 5x in $f1
+	lwc1 $f2, indexx
+	mul.s $f1, $f1, $f2
+	
+	#Display the value 5x
+	#li $v0, 2
+	#add.s  $f12, $f12, $f1
+	#syscall
+	
+	#Prompt the user to enter y
+	li $v0, 4
+	la $a0, prompty
+	syscall
+	
+	#Get the value of x
+	li $v0, 6
+	syscall
+	
+	#Display the value y
+	#li $v0, 2
+	#add.s  $f12, $f12, $f0
+	#syscall
+	
+	#Store the value of y
+	mov.s $f2,$f0
+	
+	#Calculate and store 3x in $f2
+	lwc1 $f3, indexy
+	mul.s $f2, $f2, $f3
+	
+	#Display the value 3y
+	#li $v0, 2
+	#add.s  $f12, $f12, $f2
+	#syscall
+	
+	#Calculate 5x + 3y and store in $f1
+	add.s $f1, $f1, $f2
+	
+	#Display the value 5x + 3y
+	#li $v0, 2
+	#add.s  $f12, $f12, $f1
+	#syscall
+	
+	#Calculate 5x + 3y + z
+	#Prompt the user to enter z
+	li $v0, 4
+	la $a0, promptz
+	syscall
+	
+	#Get the value of z
+	li $v0, 6
+	syscall
+	
+	#Display the value z
+	#li $v0, 2
+	#add.s  $f12, $f12, $f0
+	#syscall
+	
+	#Store the value of z
+	mov.s $f2,$f0
+	
+	#Calculate the value 5x + 3y + z and store in $f1
+	add.s $f1, $f1, $f2
+	
+	#Calculate ((5x + 3y + z)/2) and store in f1
+	lwc1 $f2, two
+	mul.s $f1, $f1, $f2
+	
+	#Calculate ((5x + 3y + z)/2)/3 and store in f1
+	lwc1 $f2, three
+	div.s $f1, $f1, $f2
+	
+	#Display the result
+	li $v0, 2
+	add.s  $f12, $f12, $f1
+	syscall
