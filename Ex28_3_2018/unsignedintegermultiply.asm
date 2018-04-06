@@ -25,7 +25,7 @@
 	addu $a2, $zero, $v0
 	
 	#Multiplicant
-	mult $a1,$a2
+	mulo $a1,$a2
 	
 	#Prompt the high register value
 	li $v0, 4
